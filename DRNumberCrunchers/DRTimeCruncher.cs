@@ -207,6 +207,7 @@ namespace DRNumberCrunchers
         public string Tags { get; private set; }
         public int PlayerID { get; private set; }
         public string DriverName { get; private set; }
+        public string ProfileURL { get; private set; }
         public string Vehicle { get; private set; }
         public string OverallTime { get; private set; }
         public string OverallDiffFirst { get; private set; }
@@ -228,12 +229,13 @@ namespace DRNumberCrunchers
         /// Data is the 'raw' string data taken from the results
         /// Tags are optional (not all drivers will have tags)
         /// </summary>
-        public DriverTime(int overallPosition, int playerID, string driverName, string vehicle, string overallTime, string overallDiffFirst, string tags = null)
+        public DriverTime(int overallPosition, int playerID, string driverName, string profileURL, string vehicle, string overallTime, string overallDiffFirst, string tags = null)
         {
             OverallPosition = overallPosition;
             Tags = tags;
             PlayerID = playerID;
             DriverName = driverName;
+            ProfileURL = profileURL;
             Vehicle = vehicle;
             OverallTime = overallTime;
             OverallDiffFirst = overallDiffFirst;
