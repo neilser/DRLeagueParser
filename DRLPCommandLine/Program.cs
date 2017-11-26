@@ -36,11 +36,11 @@ namespace DRLPCommandLine
                     EventID = int.Parse(args[i + 1].Trim());
             }
 
-            if (LeagueURL == string.Empty)
+            /*if (LeagueURL == string.Empty)
             {
                 WriteErrorFile("No eventID provided\nPlease provide an ID with the -lurl \"address\" parameter");
                 return;
-            }
+            }*/
 
             if (EventID <= 0)
             {
