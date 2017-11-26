@@ -181,7 +181,7 @@ namespace DRLPTest
                     }
                     else
                     {
-                        outputSB.AppendLine(",,," + driverName + ",,DNF");
+                        outputSB.AppendLine(",,," + driverName + ",,,DNF");
                     }
                 }
 
@@ -240,7 +240,7 @@ namespace DRLPTest
                     }
                     else
                     {
-                        outputSB.AppendLine(",," + driverName + ",,DNF");
+                        outputSB.AppendLine(",," + driverName + ",,,DNF");
                     }
                 }
 
