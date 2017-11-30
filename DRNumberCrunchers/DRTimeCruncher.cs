@@ -32,8 +32,8 @@ namespace DRNumberCrunchers
                 return true;
 
 			// create lookup tables for comparing times
-            var previousStage = new Dictionary<string, DriverTime>();
-            var currentStage = new Dictionary<string, DriverTime>();
+            var previousStage = new Dictionary<int, DriverTime>();
+            var currentStage = new Dictionary<int, DriverTime>();
 
 			previousStage = stages[0].DriverTimes;
 
@@ -45,7 +45,7 @@ namespace DRNumberCrunchers
 				currentStage = stages[i].DriverTimes;
 
 				// for each driver on the previous stage
-				foreach (KeyValuePair<string,DriverTime> previousDriverTimeKvp in previousStage)
+				foreach (KeyValuePair<int,DriverTime> previousDriverTimeKvp in previousStage)
 				{
 					// get the current time and compute the stage time and position change
 					DriverTime currentDriverTime;
@@ -169,7 +169,7 @@ namespace DRNumberCrunchers
     /// </summary>
     public class Stage : IEnumerable
     {
-		public Dictionary<string, DriverTime> DriverTimes { get; private set; }
+		public Dictionary<int, DriverTime> DriverTimes { get; private set; }
 
         /// <summary>
         /// Adds a driver's stage results to the stage's collection
@@ -177,7 +177,7 @@ namespace DRNumberCrunchers
         /// <returns>true</returns>
         public bool AddDriver(DriverTime driverTime)
         {
-			DriverTimes.Add(driverTime.DriverName, driverTime);
+			DriverTimes.Add(driverTime.PlayerID, driverTime);
             return true;
         }
 
@@ -188,7 +188,7 @@ namespace DRNumberCrunchers
 
 		public Stage()
 		{
-			DriverTimes = new Dictionary<string, DriverTime>();
+			DriverTimes = new Dictionary<int, DriverTime>();
 		}
 
         public int Count
