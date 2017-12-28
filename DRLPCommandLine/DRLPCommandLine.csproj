@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\DRLPTest\RacenetApiParser.cs">
+      <Link>RacenetApiParser.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RacenetApiParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
