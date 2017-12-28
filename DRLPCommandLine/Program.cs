@@ -44,7 +44,7 @@ namespace DRLPCommandLine
 
             if (EventID <= 0)
             {
-                WriteErrorFile("No eventID provided\nPlease provide an event ID with the -lid <number> parameter");
+                WriteErrorFile("No eventID provided\nPlease provide an event ID with the -eid <number> parameter");
                 return;
             }
 
