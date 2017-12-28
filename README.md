@@ -11,9 +11,9 @@ Simply put the event ID into the "Parse via Racenet" input and all stages will b
 
 
 TODO:
-* modify or possibly remove DNF rows, because they currently lack any ID information other than the driver name and are thus not really usable for batch processing once we move to playerID/ProfileURL for tracking drivers
-* at some point, deal with driver names which contain commas as they break the CSV formatting (simplest remedy is probably to remove them, since the driver name won't be the primary key for our data any more)
-* better fix, which immediately partly fixes both of the above issues, is to move to using either the profileURL or the playerID field as the key for the driver data
+* [SUPERSEDED] modify or possibly remove DNF rows, because they currently lack any ID information other than the driver name and are thus not really usable for batch processing once we move to playerID/ProfileURL for tracking drivers
+* [DONE (by using double-quotes)] at some point, deal with driver names which contain commas as they break the CSV formatting (simplest remedy is probably to remove them, since the driver name won't be the primary key for our data any more)
+* [DONE] better fix, which immediately partly fixes both of the above issues, is to move to using either the profileURL or the playerID field as the key for the driver data
 
 
 **Parsing via text:**
