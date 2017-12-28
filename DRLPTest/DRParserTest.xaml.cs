@@ -170,7 +170,7 @@ namespace DRLPTest
                         var line = driverTime.OverallPosition + "," +
                                    driverTime.CalculatedPositionChange + "," +
                                    driverTime.PlayerID + "," +
-                                   driverTime.DriverName + "," +
+                                   "\"" + driverTime.DriverName + "\"" + "," +
                                    driverTime.ProfileURL + "," +
                                    driverTime.Vehicle + "," +
                                    driverTime.CalculatedOverallTime.ToString(formatString) + "," +
@@ -229,7 +229,7 @@ namespace DRLPTest
                         var formatString = @"mm\:ss\.fff";
                         var line = driverTime.CalculatedStagePosition + "," +
                                    driverTime.PlayerID + "," +
-                                   driverTime.DriverName + "," +
+                                   "\"" + driverTime.DriverName + "\"" + "," +
                                    driverTime.ProfileURL + "," +
                                    driverTime.Vehicle + "," +
                                    driverTime.CalculatedStageTime.ToString(formatString) + "," +
