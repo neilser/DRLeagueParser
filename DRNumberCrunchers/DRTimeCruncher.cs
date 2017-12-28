@@ -93,7 +93,7 @@ namespace DRNumberCrunchers
 
 					if (isFirstStage == true)
 					{
-						driverTime.CaclulatedStagePosition = driverTime.OverallPosition;
+						driverTime.CalculatedStagePosition = driverTime.OverallPosition;
 						driverTime.CalculatedStageTime = driverTime.CalculatedOverallTime;
 					}
 
@@ -110,7 +110,7 @@ namespace DRNumberCrunchers
 
 				if (isFirstStage == true)
 				{
-					driverTime.CaclulatedStagePosition = driverTime.OverallPosition;
+					driverTime.CalculatedStagePosition = driverTime.OverallPosition;
 					driverTime.CalculatedStageTime = driverTime.CalculatedOverallTime;
 					driverTime.CalculatedStageDiffFirst = driverTime.CalculatedOverallDiffFirst;
 					driverTime.CalculatedStageDiffPrevious = driverTime.CalculatedOverallDiffPrevious;
@@ -137,7 +137,7 @@ namespace DRNumberCrunchers
 					{
 						fastestStageTime = driverTime.CalculatedStageTime;
 						previousStageTime = driverTime.CalculatedStageTime;
-						driverTime.CaclulatedStagePosition = stagePosition;
+						driverTime.CalculatedStagePosition = stagePosition;
 						stagePosition++;
                         firstDriverProcessed = true;
                         continue;
@@ -150,7 +150,7 @@ namespace DRNumberCrunchers
 
                     driverTime.CalculatedStageDiffFirst = driverTime.CalculatedStageTime - fastestStageTime;
 					driverTime.CalculatedStageDiffPrevious = driverTime.CalculatedStageTime - previousStageTime;
-					driverTime.CaclulatedStagePosition = stagePosition;
+					driverTime.CalculatedStagePosition = stagePosition;
 					previousStageTime = driverTime.CalculatedStageTime;
 					stagePosition++;
 				}
@@ -219,7 +219,7 @@ namespace DRNumberCrunchers
 		public int CalculatedPositionChange { get; internal set; }
 
         // calculated stage data
-		public int CaclulatedStagePosition { get; internal set; }
+		public int CalculatedStagePosition { get; internal set; }
 		public TimeSpan CalculatedStageTime { get; internal set; }
 		public TimeSpan CalculatedStageDiffPrevious { get; internal set; }
 		public TimeSpan CalculatedStageDiffFirst { get; internal set; }

@@ -227,7 +227,7 @@ namespace DRLPTest
                     if (driverTime != null)
                     {
                         var formatString = @"mm\:ss\.fff";
-                        var line = driverTime.CaclulatedStagePosition + "," +
+                        var line = driverTime.CalculatedStagePosition + "," +
                                    driverTime.PlayerID + "," +
                                    driverTime.DriverName + "," +
                                    driverTime.ProfileURL + "," +
