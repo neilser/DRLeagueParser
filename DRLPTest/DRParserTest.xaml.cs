@@ -95,15 +95,15 @@ namespace DRLPTest
 
                 if (splitCount == 5)
                 {
-                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, splitLine[1], splitLine[2], splitLine[3], splitLine[4]));
+                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, "", splitLine[1], splitLine[2], splitLine[3], splitLine[4]));
                 }
                 else if (splitCount == 6)
                 {
-                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, splitLine[2], splitLine[3], splitLine[4], splitLine[5], splitLine[1]));
+                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, "", splitLine[2], splitLine[3], splitLine[4], splitLine[5], splitLine[1]));
                 }
                 else if (splitCount == 7)
                 {
-                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, splitLine[3], splitLine[4], splitLine[5], splitLine[6], splitLine[2]));
+                    stageData.AddDriver(new DriverTime(Int32.Parse(splitLine[0]), 0, "", splitLine[3], splitLine[4], splitLine[5], splitLine[6], splitLine[2]));
                 }
                 else
                 {
@@ -144,9 +144,9 @@ namespace DRLPTest
             {
                 outputSB.AppendLine("SS" + stageCount);
                 outputSB.AppendLine("Overall");
-                outputSB.AppendLine("Pos, Pos Chng, PlayerID, Name, Vehicle, Time, Diff 1st, Diff Prev");
+                outputSB.AppendLine("Pos, Pos Chng, PlayerID, Name, ProfileURL, Vehicle, Time, Diff 1st, Diff Prev");
 
-                List<KeyValuePair<string, DriverTime>> sortedStageData = stage.DriverTimes.ToList();
+                List<KeyValuePair<int, DriverTime>> sortedStageData = stage.DriverTimes.ToList();
                 sortedStageData.Sort((x, y) =>
                 {
                     if (x.Value != null && y.Value == null)
@@ -159,9 +159,9 @@ namespace DRLPTest
                         return x.Value.CalculatedOverallTime.CompareTo(y.Value.CalculatedOverallTime);
                 });
 
-                foreach (KeyValuePair<string, DriverTime> driverTimeKvp in sortedStageData)
+                foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedStageData)
                 {
-                    var driverName = driverTimeKvp.Key;
+                    var driverPlayerID = driverTimeKvp.Key;
                     var driverTime = driverTimeKvp.Value;
 
                     if (driverTime != null)
@@ -170,7 +170,8 @@ namespace DRLPTest
                         var line = driverTime.OverallPosition + "," +
                                    driverTime.CalculatedPositionChange + "," +
                                    driverTime.PlayerID + "," +
-                                   driverTime.DriverName + "," +
+                                   "\"" + driverTime.DriverName + "\"" + "," +
+                                   driverTime.ProfileURL + "," +
                                    driverTime.Vehicle + "," +
                                    driverTime.CalculatedOverallTime.ToString(formatString) + "," +
                                    driverTime.CalculatedOverallDiffFirst.ToString(formatString) + "," +
@@ -180,7 +181,7 @@ namespace DRLPTest
                     }
                     else
                     {
-                        outputSB.AppendLine(",,," + driverName + ",,DNF");
+                        outputSB.AppendLine(",," + driverPlayerID + ",,,,DNF");
                     }
                 }
 
@@ -203,9 +204,9 @@ namespace DRLPTest
             {
                 outputSB.AppendLine("SS" + stageCount);
                 outputSB.AppendLine("Stage");
-                outputSB.AppendLine("Pos, PlayerID, Name, Vehicle, Time, Diff 1st, Diff Prev");
+                outputSB.AppendLine("Pos, PlayerID, Name, ProfileURL, Vehicle, Time, Diff 1st, Diff Prev");
 
-                List<KeyValuePair<string, DriverTime>> sortedStageData = stage.DriverTimes.ToList();
+                List<KeyValuePair<int, DriverTime>> sortedStageData = stage.DriverTimes.ToList();
                 sortedStageData.Sort((x, y) =>
                 {
                     if (x.Value != null && y.Value == null)
@@ -218,17 +219,18 @@ namespace DRLPTest
                         return x.Value.CalculatedStageTime.CompareTo(y.Value.CalculatedStageTime);
                 });
 
-                foreach (KeyValuePair<string, DriverTime> driverTimeKvp in sortedStageData)
+                foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedStageData)
                 {
-                    var driverName = driverTimeKvp.Key;
+                    var driverPlayerID = driverTimeKvp.Key;
                     var driverTime = driverTimeKvp.Value;
 
                     if (driverTime != null)
                     {
                         var formatString = @"mm\:ss\.fff";
-                        var line = driverTime.CaclulatedStagePosition + "," +
+                        var line = driverTime.CalculatedStagePosition + "," +
                                    driverTime.PlayerID + "," +
-                                   driverTime.DriverName + "," +
+                                   "\"" + driverTime.DriverName + "\"" + "," +
+                                   driverTime.ProfileURL + "," +
                                    driverTime.Vehicle + "," +
                                    driverTime.CalculatedStageTime.ToString(formatString) + "," +
                                    driverTime.CalculatedStageDiffFirst.ToString(formatString) + "," +
@@ -238,7 +240,7 @@ namespace DRLPTest
                     }
                     else
                     {
-                        outputSB.AppendLine(",," + driverName + ",,DNF");
+                        outputSB.AppendLine("," + driverPlayerID + ",,,,DNF");
                     }
                 }
 
@@ -253,8 +255,8 @@ namespace DRLPTest
         private void printChartOutput()
         {
             var outputSB = new StringBuilder();
-            var positionDict = new Dictionary<string, List<int>>();
-            List<KeyValuePair<string, DriverTime>> sortedStageData = null;
+            var positionDict = new Dictionary<int, List<int>>();
+            List<KeyValuePair<int, DriverTime>> sortedStageData = null;
 
             foreach (Stage stage in rallyData)
             {
@@ -271,7 +273,7 @@ namespace DRLPTest
                         return x.Value.CalculatedOverallTime.CompareTo(y.Value.CalculatedOverallTime);
                 });
 
-                foreach (KeyValuePair<string, DriverTime> driverTimeKvp in sortedStageData)
+                foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedStageData)
                 {
                     if (driverTimeKvp.Value == null)
                         continue;
@@ -294,7 +296,7 @@ namespace DRLPTest
             if (sortedStageData == null)
                 return;
 
-            foreach (KeyValuePair<string, DriverTime> driverTimeKvp in sortedStageData)
+            foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedStageData)
             {
                 var driverKey = driverTimeKvp.Key;
                 var positionList = positionDict[driverKey];

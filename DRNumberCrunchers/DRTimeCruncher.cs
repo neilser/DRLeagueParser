@@ -32,8 +32,8 @@ namespace DRNumberCrunchers
                 return true;
 
 			// create lookup tables for comparing times
-            var previousStage = new Dictionary<string, DriverTime>();
-            var currentStage = new Dictionary<string, DriverTime>();
+            var previousStage = new Dictionary<int, DriverTime>();
+            var currentStage = new Dictionary<int, DriverTime>();
 
 			previousStage = stages[0].DriverTimes;
 
@@ -45,7 +45,7 @@ namespace DRNumberCrunchers
 				currentStage = stages[i].DriverTimes;
 
 				// for each driver on the previous stage
-				foreach (KeyValuePair<string,DriverTime> previousDriverTimeKvp in previousStage)
+				foreach (KeyValuePair<int,DriverTime> previousDriverTimeKvp in previousStage)
 				{
 					// get the current time and compute the stage time and position change
 					DriverTime currentDriverTime;
@@ -93,7 +93,7 @@ namespace DRNumberCrunchers
 
 					if (isFirstStage == true)
 					{
-						driverTime.CaclulatedStagePosition = driverTime.OverallPosition;
+						driverTime.CalculatedStagePosition = driverTime.OverallPosition;
 						driverTime.CalculatedStageTime = driverTime.CalculatedOverallTime;
 					}
 
@@ -110,7 +110,7 @@ namespace DRNumberCrunchers
 
 				if (isFirstStage == true)
 				{
-					driverTime.CaclulatedStagePosition = driverTime.OverallPosition;
+					driverTime.CalculatedStagePosition = driverTime.OverallPosition;
 					driverTime.CalculatedStageTime = driverTime.CalculatedOverallTime;
 					driverTime.CalculatedStageDiffFirst = driverTime.CalculatedOverallDiffFirst;
 					driverTime.CalculatedStageDiffPrevious = driverTime.CalculatedOverallDiffPrevious;
@@ -137,7 +137,7 @@ namespace DRNumberCrunchers
 					{
 						fastestStageTime = driverTime.CalculatedStageTime;
 						previousStageTime = driverTime.CalculatedStageTime;
-						driverTime.CaclulatedStagePosition = stagePosition;
+						driverTime.CalculatedStagePosition = stagePosition;
 						stagePosition++;
                         firstDriverProcessed = true;
                         continue;
@@ -150,7 +150,7 @@ namespace DRNumberCrunchers
 
                     driverTime.CalculatedStageDiffFirst = driverTime.CalculatedStageTime - fastestStageTime;
 					driverTime.CalculatedStageDiffPrevious = driverTime.CalculatedStageTime - previousStageTime;
-					driverTime.CaclulatedStagePosition = stagePosition;
+					driverTime.CalculatedStagePosition = stagePosition;
 					previousStageTime = driverTime.CalculatedStageTime;
 					stagePosition++;
 				}
@@ -169,7 +169,7 @@ namespace DRNumberCrunchers
     /// </summary>
     public class Stage : IEnumerable
     {
-		public Dictionary<string, DriverTime> DriverTimes { get; private set; }
+		public Dictionary<int, DriverTime> DriverTimes { get; private set; }
 
         /// <summary>
         /// Adds a driver's stage results to the stage's collection
@@ -177,7 +177,7 @@ namespace DRNumberCrunchers
         /// <returns>true</returns>
         public bool AddDriver(DriverTime driverTime)
         {
-			DriverTimes.Add(driverTime.DriverName, driverTime);
+			DriverTimes.Add(driverTime.PlayerID, driverTime);
             return true;
         }
 
@@ -188,7 +188,7 @@ namespace DRNumberCrunchers
 
 		public Stage()
 		{
-			DriverTimes = new Dictionary<string, DriverTime>();
+			DriverTimes = new Dictionary<int, DriverTime>();
 		}
 
         public int Count
@@ -207,6 +207,7 @@ namespace DRNumberCrunchers
         public string Tags { get; private set; }
         public int PlayerID { get; private set; }
         public string DriverName { get; private set; }
+        public string ProfileURL { get; private set; }
         public string Vehicle { get; private set; }
         public string OverallTime { get; private set; }
         public string OverallDiffFirst { get; private set; }
@@ -218,7 +219,7 @@ namespace DRNumberCrunchers
 		public int CalculatedPositionChange { get; internal set; }
 
         // calculated stage data
-		public int CaclulatedStagePosition { get; internal set; }
+		public int CalculatedStagePosition { get; internal set; }
 		public TimeSpan CalculatedStageTime { get; internal set; }
 		public TimeSpan CalculatedStageDiffPrevious { get; internal set; }
 		public TimeSpan CalculatedStageDiffFirst { get; internal set; }
@@ -228,12 +229,13 @@ namespace DRNumberCrunchers
         /// Data is the 'raw' string data taken from the results
         /// Tags are optional (not all drivers will have tags)
         /// </summary>
-        public DriverTime(int overallPosition, int playerID, string driverName, string vehicle, string overallTime, string overallDiffFirst, string tags = null)
+        public DriverTime(int overallPosition, int playerID, string driverName, string profileURL, string vehicle, string overallTime, string overallDiffFirst, string tags = null)
         {
             OverallPosition = overallPosition;
             Tags = tags;
             PlayerID = playerID;
             DriverName = driverName;
+            ProfileURL = profileURL;
             Vehicle = vehicle;
             OverallTime = overallTime;
             OverallDiffFirst = overallDiffFirst;
