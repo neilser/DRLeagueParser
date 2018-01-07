@@ -53,9 +53,14 @@ namespace DRNumberCrunchers
 					{
 						if (currentDriverTime != null)
 						{
-							currentDriverTime.CalculatedStageTime = currentDriverTime.CalculatedOverallTime - previousDriverTimeKvp.Value.CalculatedOverallTime;
-							currentDriverTime.CalculatedPositionChange = previousDriverTimeKvp.Value.OverallPosition - currentDriverTime.OverallPosition;
-						}
+                            if (previousDriverTimeKvp.Value != null)
+                            {
+                                currentDriverTime.CalculatedStageTime = currentDriverTime.CalculatedOverallTime - previousDriverTimeKvp.Value.CalculatedOverallTime;
+                                currentDriverTime.CalculatedPositionChange = previousDriverTimeKvp.Value.OverallPosition - currentDriverTime.OverallPosition;
+                            }
+                            else Console.Error.WriteLine("Argh, previous stage data was null for playerID " + previousDriverTimeKvp.Key.ToString() +
+                                " on stage " + i.ToString());
+                        }
 					}
 					else
 					{
