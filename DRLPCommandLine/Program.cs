@@ -121,6 +121,17 @@ namespace DRLPCommandLine
                 var driverPlayerID = driverTimeKvp.Key;
                 var driverTime = driverTimeKvp.Value;
 
+                // a driver may not have a time on the final stage - if that's the case, work backwards through the stages until we
+                // find a time, so we can choose the most recent DriverName used... ARGH, no, can't do that - IEnumerators don't have a
+                // MovePrev() method, so stuff it, we can just work forwards through the stages until we get some driver data :-/
+                StageEnum.Reset();
+                while (driverTime == null)
+                {
+                    StageEnum.MoveNext();
+                    Stage tempStage = (Stage)StageEnum.Current;
+                    tempStage.DriverTimes.TryGetValue(driverPlayerID, out driverTime);
+                }
+
                 // generate the driver info
                 var line =
                         driverTime.PlayerID + "," +
