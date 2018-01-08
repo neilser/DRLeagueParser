@@ -149,8 +149,11 @@ namespace DRLPCommandLine
                 foreach (Stage stage in rallyData)
                 {
                     line += ",";
-                    DriverTime stageTime = stage.DriverTimes[driverPlayerID];
-                    if (stageTime != null) line += stageTime.CalculatedOverallTime.TotalSeconds.ToString("0.000");
+                    DriverTime stageTime;
+                    if (true == stage.DriverTimes.TryGetValue(driverPlayerID, out stageTime))
+                    {
+                        if (stageTime != null) line += stageTime.CalculatedOverallTime.TotalSeconds.ToString("0.000");
+                    }
                 }
                 line += "\n";
 
