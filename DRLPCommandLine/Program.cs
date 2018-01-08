@@ -118,8 +118,8 @@ namespace DRLPCommandLine
                 DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".csv");
 
             // Output a header line, so next stage of processing has names for all fields
-            fout.Write("PlayerID, DriverName, ProfileURL, Vehicle");
-            for (int i = 0; i < rallyData.StageCount; i++) fout.Write(", " + (i+1).ToString());
+            fout.Write("PlayerID,DriverName,ProfileURL,Vehicle");
+            for (int i = 0; i < rallyData.StageCount; i++) fout.Write("," + (i+1).ToString());
             fout.WriteLine();
 
                 foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedFinalStageData)
