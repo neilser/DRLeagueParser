@@ -138,14 +138,14 @@ namespace DRLPCommandLine
                         driverTime.PlayerID + "," +
                         "\"" + driverTime.DriverName + "\"" + "," +
                         driverTime.ProfileURL + "," +
-                        driverTime.Vehicle + ",";
+                        driverTime.Vehicle;
 
                 // and now all stage times
                 foreach (Stage stage in rallyData)
                 {
+                    line += ",";
                     DriverTime stageTime = stage.DriverTimes[driverPlayerID];
                     if (stageTime != null) line += stageTime.CalculatedOverallTime.TotalSeconds.ToString("0.000");
-                    line += ",";
                 }
                 line += "\n";
 
