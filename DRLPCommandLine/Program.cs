@@ -116,8 +116,13 @@ namespace DRLPCommandLine
             System.IO.Directory.CreateDirectory(outPath + "\\DRLPResults\\");
             System.IO.StreamWriter fout = new System.IO.StreamWriter(outPath + "\\DRLPResults\\DRLPRes_" + EventID.ToString() + "_" +
                 DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".csv");
-            
-            foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedFinalStageData)
+
+            // Output a header line, so next stage of processing has names for all fields
+            fout.Write("PlayerID, DriverName, ProfileURL, Vehicle");
+            for (int i = 0; i < rallyData.StageCount; i++) fout.Write(", " + (i+1).ToString());
+            fout.WriteLine();
+
+                foreach (KeyValuePair<int, DriverTime> driverTimeKvp in sortedFinalStageData)
             {
                 var driverPlayerID = driverTimeKvp.Key;
                 var driverTime = driverTimeKvp.Value;
