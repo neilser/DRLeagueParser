@@ -66,7 +66,8 @@ namespace DRLPCommandLine
                 return;
             }
 
-            rallyData.CalculateTimes();
+            //OK, don't bother with CalculateTimes() any more, as I've decided to just dump the (more raw) CalculatedOverallTime for each stage
+            //rallyData.CalculateTimes();
 
             // Got the result, now lets sort it into the format we want!
 
@@ -80,7 +81,7 @@ namespace DRLPCommandLine
             // want to replace this with one loop if poss, with output being similar (one driver per line) but including PlayerID and ProfileURL,
             // and also with sorting by overall rally time:
             // take final stage data, sort it, get the keys (PlayerIDs) from that sorted list
-            // iterate over the sorted PlayerIDs and print required driver data + times from all stages 
+            // iterate over the sorted PlayerIDs and print required driver data + overall times from all stages 
 
             // Get the final stage data for the rally 
 
@@ -143,7 +144,7 @@ namespace DRLPCommandLine
                 foreach (Stage stage in rallyData)
                 {
                     DriverTime stageTime = stage.DriverTimes[driverPlayerID];
-                    if (stageTime != null) line += stageTime.CalculatedStageTime.TotalSeconds.ToString("0.000");
+                    if (stageTime != null) line += stageTime.CalculatedOverallTime.TotalSeconds.ToString("0.000");
                     line += ",";
                 }
                 line += "\n";
