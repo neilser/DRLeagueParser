@@ -66,8 +66,14 @@ namespace DRLPCommandLine
                 return;
             }
 
-            //OK, don't bother with CalculateTimes() any more, as I've decided to just dump the (more raw) CalculatedOverallTime for each stage
-            //rallyData.CalculateTimes();
+            // OK, don't bother with CalculateTimes() any more, as I've decided to just dump the (more raw) CalculatedOverallTime for each stage
+
+            // Argh, put it back in for a moment to check if it helps... yes it did. The useful side-effect of calling CalculateTimes() is that
+            // all drivers have a DriverTime (though possibly null) for all stages. Without calling it, my code below is only dumping drivers who
+            // have set a time on the final stage. I could work around that by either calling CalculateTimes() or by not sorting the output based
+            // on times on the final stage. Have chosen the former - keep CalculateTimes() for now, despite not actually wanting the calculated
+            // stage times...
+            rallyData.CalculateTimes();
 
             // Got the result, now lets sort it into the format we want!
 
